@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { subscribe, unsubscribe } from "./StateController";
 import PropTypes from "prop-types";
 
@@ -8,9 +8,16 @@ const Output = ({ name }) => {
 	const subscribeClick = () => {
 		subscribe("userInput", setUserInput);
 	};
+
 	const unsubscribeClick = () => {
 		unsubscribe("userInput", setUserInput);
 	};
+
+	useEffect(() => {
+		return () => {
+			unsubscribe("userInput", setUserInput);
+		};
+	}, []);
 
 	return (
 		<label>
